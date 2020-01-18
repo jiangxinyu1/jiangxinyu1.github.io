@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Chapter 3-2-3 - -姜欣宇的个人博客-</title>
+<meta name="description" content=" 在这里分享一些SLAM和无人驾驶多传感器融合算法学习的笔记和心得 ">
+<meta name="generator" content="Hugo 0.62.2" />
+<link href="https://jiangxinyu1.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/3/">
+<link rel="stylesheet" href="https://jiangxinyu1.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://jiangxinyu1.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://jiangxinyu1.github.io/js/bundle.js"></script><style>
+:root {}
+</style>
+<meta property="og:title" content="Chapter 3-2-3" />
+<meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/3/" />
+<meta property="og:image" content="https://jiangxinyu1.github.io/og-image.png"/>
+<meta property="article:published_time" content="2017-10-17T15:26:15+00:00" />
+<meta property="article:modified_time" content="2017-10-17T15:26:15+00:00" /><meta property="og:site_name" content="进一寸有一寸的欢喜 -古月居" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://jiangxinyu1.github.io/og-image.png"/>
+
+<meta name="twitter:title" content="Chapter 3-2-3"/>
+<meta name="twitter:description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
+<meta itemprop="name" content="Chapter 3-2-3">
+<meta itemprop="description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">
+<meta itemprop="datePublished" content="2017-10-17T15:26:15&#43;00:00" />
+<meta itemprop="dateModified" content="2017-10-17T15:26:15&#43;00:00" />
+<meta itemprop="wordCount" content="69">
+<meta itemprop="image" content="https://jiangxinyu1.github.io/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>-姜欣宇的个人博客-</h1>
+
+ <span class="version">Version 0.6.0</span>
+<a href="https://github.com/thingsym/hugo-theme-techdoc" class="github"><i class="fab fa-github"></i></a>
+<p class="description"> 在这里分享一些SLAM和无人驾驶多传感器融合算法学习的笔记和心得 </p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="https://github.com/jiangxinyu1/">Github</a></li>
+<li><a href="/about/">About Me</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Chapter 3-2-3</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<div class="edit-meta">
+Last updated on 17 Oct 2017
+
+
+<br>
+Published on 17 Oct 2017
+<br><a href="%e9%a1%b9%e7%9b%ae-%e5%a4%9a%e4%bc%a0%e6%84%9f%e5%99%a8%e8%9e%8d%e5%90%88/Camera/3.md/edit/master/content/%e9%a1%b9%e7%9b%ae-%e5%a4%9a%e4%bc%a0%e6%84%9f%e5%99%a8%e8%9e%8d%e5%90%88/Camera/3.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/2/" title="Chapter 3-2-2"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Chapter 3-2-2</a>
+<a class="nav nav-next" href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/4/" title="Chapter 3-2-4">Next - Chapter 3-2-4 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="open-menu">
+<ul>
+<li class=""><a href="https://jiangxinyu1.github.io/">Home</a></li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E6%9C%80%E4%BC%98%E5%8C%96/">数学基础 - 最优化方法</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E6%9C%80%E4%BC%98%E5%8C%96/1/">Chapter 1-1</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E6%9C%80%E4%BC%98%E5%8C%96/2/">Chapter 1-2</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E6%9C%80%E4%BC%98%E5%8C%96/3/">Chapter 1-3</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E6%9C%80%E4%BC%98%E5%8C%96/4/">Chapter 1-4</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E7%9F%A9%E9%98%B5/">数学基础 - 矩阵</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E7%9F%A9%E9%98%B5/1/">Chapter 1-1</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E7%9F%A9%E9%98%B5/2/">Chapter 1-2</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E7%9F%A9%E9%98%B5/3/">Chapter 1-3</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E7%9F%A9%E9%98%B5/4/">Chapter 1-4</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-c&#43;&#43;/">编程基础 - C&#43;&#43;</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-c&#43;&#43;/1/">Chapter 1-1</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-c&#43;&#43;/2/">Chapter 1-2</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-c&#43;&#43;/3/">Chapter 1-3</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-c&#43;&#43;/4/">Chapter 1-4</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/chapter4/">项目 - 基于的ROS的SLAM系统 </a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">编程基础-数据结构与算法</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/2/">Chapter 2-2 排序</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3/">Chapter 2-3</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1/">Chapter 2-1 二叉树的遍历方法及实现</a></li>
+</ul>
+  
+</li>
+
+<li class="parent"><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/">项目 - Sensor Fusion</a>
+  
+<ul class="sub-menu">
+
+<li class="parent"><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/">Camera</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/1/">Chapter 3-2-1</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/2/">Chapter 3-2-2</a></li>
+<li class="active"><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/3/">Chapter 3-2-3</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/4/">Chapter 3-2-4</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/">Kalman-Filter</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/1/">Chapter 3-2-1</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/2/">Chapter 3-2-2</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/3/">Chapter 3-2-3</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/4/">Chapter 3-2-4</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/">Lidar</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/1/">Chapter 3-2-1</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/2/">Chapter 3-2-2</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/3/">Chapter 3-2-3</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/4/">Chapter 3-2-4</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/radar/">Radar</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/radar/1/">Chapter 3-2-1</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/radar/2/">Chapter 3-2-2</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/radar/3/">Chapter 3-2-3</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/radar/4/">Chapter 3-2-4</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
