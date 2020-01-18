@@ -11,5 +11,23 @@
 	<atom:link href="https://jiangxinyu1.github.io/2d-slam/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Graph</title>
+      <link>https://jiangxinyu1.github.io/2d-slam/graph/</link>
+      <pubDate>Fri, 17 Jan 2020 16:14:27 +0800</pubDate>
+      
+      <guid>https://jiangxinyu1.github.io/2d-slam/graph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>示例</title>
+      <link>https://jiangxinyu1.github.io/2d-slam/1/</link>
+      <pubDate>Fri, 17 Jan 2020 16:14:27 +0800</pubDate>
+      
+      <guid>https://jiangxinyu1.github.io/2d-slam/1/</guid>
+      <description>问题 #include &amp;lt;iostream&amp;gt; using namespace std ; int main() { cout &amp;lt;&amp;lt; &amp;quot;lll&amp;quot; &amp;lt;&amp;lt; endl; return 0; }</description>
+    </item>
+    
   </channel>
 </rss>
