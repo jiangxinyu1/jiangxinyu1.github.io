@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>项目 - 基于的ROS的SLAM系统  on -姜欣宇的个人博客-</title>
+    <link>https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/</link>
+    <description>Recent content in 项目 - 基于的ROS的SLAM系统  on -姜欣宇的个人博客-</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
