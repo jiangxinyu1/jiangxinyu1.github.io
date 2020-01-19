@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>激光雷达运动畸变去除  - -姜欣宇的个人博客-</title>
+<meta name="description" content=" 在这里分享一些在激光SLAM和多传感器融合学习路上的笔记和心得，共同进步。">
+<meta name="generator" content="Hugo 0.62.2" />
+<link href="https://jiangxinyu1.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%8E%BB%E7%95%B8%E5%8F%98/">
+<link rel="stylesheet" href="https://jiangxinyu1.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://jiangxinyu1.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://jiangxinyu1.github.io/js/bundle.js"></script><style>
+:root {}
+</style>
+<meta property="og:title" content="激光雷达运动畸变去除 " />
+<meta property="og:description" content="一 原理简述 1 激光雷达产生畸变的原因 通常激光雷达在工作的时候，我们认为其每一帧激光对应一个位姿（相当于认为这帧激光的时间里机器人的坐标没变，也" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%8E%BB%E7%95%B8%E5%8F%98/" />
+<meta property="og:image" content="https://jiangxinyu1.github.io/og-image.png"/>
+<meta property="article:published_time" content="2017-10-17T15:26:15+00:00" />
+<meta property="article:modified_time" content="2017-10-17T15:26:15+00:00" /><meta property="og:site_name" content="姜欣宇" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://jiangxinyu1.github.io/og-image.png"/>
+
+<meta name="twitter:title" content="激光雷达运动畸变去除 "/>
+<meta name="twitter:description" content="一 原理简述 1 激光雷达产生畸变的原因 通常激光雷达在工作的时候，我们认为其每一帧激光对应一个位姿（相当于认为这帧激光的时间里机器人的坐标没变，也"/>
+<meta itemprop="name" content="激光雷达运动畸变去除 ">
+<meta itemprop="description" content="一 原理简述 1 激光雷达产生畸变的原因 通常激光雷达在工作的时候，我们认为其每一帧激光对应一个位姿（相当于认为这帧激光的时间里机器人的坐标没变，也">
+<meta itemprop="datePublished" content="2017-10-17T15:26:15&#43;00:00" />
+<meta itemprop="dateModified" content="2017-10-17T15:26:15&#43;00:00" />
+<meta itemprop="wordCount" content="2578">
+<meta itemprop="image" content="https://jiangxinyu1.github.io/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>-姜欣宇的个人博客-</h1>
+
+ <span class="version">Version 0.6.0</span>
+<a href="https://github.com/thingsym/hugo-theme-techdoc" class="github"><i class="fab fa-github"></i></a>
+<p class="description"> 在这里分享一些在激光SLAM和多传感器融合学习路上的笔记和心得，共同进步。</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="https://github.com/jiangxinyu1/">Github</a></li>
+<li><a href="/about/">About Me</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>激光雷达运动畸变去除 </h1>
+<h2 id="一-原理简述">一 原理简述</h2>
+<h4 id="1-激光雷达产生畸变的原因">1 激光雷达产生畸变的原因</h4>
+<p>通常激光雷达在工作的时候，我们认为其每一帧激光对应一个位姿（相当于认为这帧激光的时间里机器人的坐标没变，也就是静止），但是每帧激光的时间里机器人实际上是在运动的。</p>
+<h4 id="2-常见的去除畸变的方法-里程计辅助方法">2 常见的去除畸变的方法-里程计辅助方法</h4>
+<p>第一种是纯估计方法：ICP类方法，VICP。另外一种就是里程计辅助的方法，十分常用。我们用里程的位姿来标定激光雷达。这么说还是比较笼统，其实就是以里程计坐标为基准通过插值来求出每一激光束对应的机器人位姿（暂且认为里程计得到的坐标准确）。</p>
+<p>具体实现的想法如下。那么首先我们要做一个机器人运动的假设，假设机器人在一帧激光数据的时间里做匀速运动。然后把里程计得到的坐标存储到一个队列里面，，和激光雷达数据的时间对齐之后要保证里程计队列完全覆盖这一帧的扫描数据。我们以激光雷达扫描的一帧激光数据为例，这一帧数据里有若干个激光束，实际上我们去畸变的过程就是求解出具体每一束激光对应的机器人位姿，求解出位姿再把这个位姿转换回扫描数据的距离值和角度值，重新发布出去，那么显示出来的。由原始激光数据，我们可以知道每一束激光打在障碍物上的激光点距离里程计坐标系原点的距离值和角度值。把这两个值转化为pcl中点类型为pcl::PointXYZRGB的点，然后把这一系列的点用红色显示出来。得到未经过去畸变处理的激光点。然后进行校正（去畸变），根据上述得到新的距离值和角度值，再把它用绿色显示出来。</p>
+<h2 id="二-代码框架">二 代码框架</h2>
+<h5 id="1-主函数">==1 主函数==</h5>
+<p>主函数第一步初始化ROS节点,第三个参数是Publisher节点的名称
+第二行代码：定义了类型为<a href="tf::TransformListener">tf::TransformListener</a>的对象tf
+第三行代码：定义了LidarMotionCalibrator类的一个对象 tmpLidarMotionCalib
+第四步：回调函数</p>
+<h5 id="2-lidarmotioncalibrator类">==2 LidarMotionCalibrator类==</h5>
+<p>这个类有两个public部分，一部分定义函数，一部分定义变量
+先看变量这部分：</p>
+<pre><code>public: 
+    tf::TransformListener* tf_; 
+    ros::NodeHandle nh_; 
+    ros::Subscriber scan_sub_;
+    pcl::PointCloud&lt;pcl::PointXYZRGB&gt; visual_cloud_;
+</code></pre><p>定义了一个坐标变换的监听者 tf_
+阿斯达
+定义了节点句柄 nh_</p>
+<p>定义了一个订阅者（scan_sub_），订阅激光数据。</p>
+<p>定义了一个存储点云的变量（visual_cloud_），点的类型是<a href="pcl::PointXYZRGB">pcl::PointXYZRGB</a></p>
+<h5 id="3-lidarmotioncalibrator类的构造函数">==3 LidarMotionCalibrator类的构造函数==</h5>
+<pre><code>LidarMotionCalibrator(tf::TransformListener* tf)
+{
+    tf_ = tf;
+    scan_sub_ = nh_.subscribe(&quot;champion_scan&quot;, 10, &amp;LidarMotionCalibrator::ScanCallBack, this);
+}
+</code></pre><p>参数是tf，初始化把坐标传递给tf_。
+订阅者scan_sub_订阅名为champion_scan的话题，注册回调函数。这个地方加上引用，不是很懂</p>
+<h5 id="4-回调函数-void-scancallback">==4 回调函数 void ScanCallBack()==</h5>
+<p>当接收到订阅的消息后，就会进入消息回调函数。</p>
+<p>1 定义一束激光的开始时间和结束时间，开始时间等于激光数据的第一个时间戳。结束时间等于开始时间加上激光束的数目乘上每束激光的时间增量。</p>
+<p>2 定义两个容器分别存储激光的距离值和角度值。用到了for循环来把数据循环取出来。</p>
+<p>3 通过PCL把原始激光数据可视化（红色）。定义一个pcl::PointXYZRGB类型的变量pt，需要机器人在里程计坐标下的位姿？.没看懂</p>
+<p>4 通过函数 Lidar_Calibration 进行矫正,得到新的激光数据。</p>
+<p>5 再次通过PCL把激光数据可视化（绿色）。</p>
+<h5 id="5-lidar_calibration函数">==5 Lidar_Calibration函数。==</h5>
+<p>首先，此函数的参数有回调函数中定义的用来存储激光数据的距离值和角度值的vector，一束激光的开始时间戳和结束时间。tf监听者。</p>
+<p>第一步，统计激光束的数量，需要两个vector的大小一致。</p>
+<p>第二步，定义一个int型变量，值为5000。</p>
+<p>第三步，设置起止时间，结束时间，，每束激光的间隔时间。当前插值段的起始下标。</p>
+<p>第四步，得到起始点的坐标和终点的坐标</p>
+<p>第五步，把基准坐标设置成得到的起始点坐标</p>
+<p>开始进入循环：</p>
+<p>第六步，遍历每一束激光，得到每一束激光的时间，如果这束激光的时间-上一个断点点的时间大于5ms就分段，计数+1。</p>
+<p>第七步，仍在for循环里，得到每一个断点的里程计下的坐标，（肯定会得到，没得到就报错了）</p>
+<p>第八步，通过子函数Lidar_MotionCalibration 对当前段进行插值。当前段是指从start_index到i的段。每次循环结束，start_index会+1，i不一定加几。。所以插值的就是一小段。</p>
+<p>第九步，跳转到子函数Lidar_MotionCalibration 。参数：基准坐标，这一段的开始坐标，这一段的结束坐标，存储角度值和距离值的vector。起始下标和里面的断点数，这里面都是2。</p>
+<h5 id="6lidar_motioncalibration函数实际进行插值的函数">6  Lidar_MotionCalibration函数（实际进行插值的函数）</h5>
+<p>最后一个参数其实就应该是输出的位姿数，其实就是把每一束的激光点对应的位姿都求出来。</p>
+<h2 id="三-遇到的问题">三 遇到的问题</h2>
+<h5 id="1-坐标转换问题">1 坐标转换问题</h5>
+<p>在实现实际插值的函数时候，我们通过里程计插值得到的机器人位姿是在里程计坐标系下的（里程计坐标系是整个程序的固定坐标系）。然后我们需要把这个坐标转换到机器人的基准坐标系下，基准坐标系的原点是这帧激光第一个激光束对应的机器人位姿。拿到每束激光在里程计下的坐标首先要把它转换到基准坐标系下。
+对每一小段的位姿线性插值得到的是每个激光束对应的点在里程计坐标系下的坐标。</p>
+<h5 id="原始数据可视化过程的坐标转换">原始数据可视化过程的坐标转换：</h5>
+<p>每个激光束的距离值和角度值——&gt;每一束激光点在雷达坐标系下的坐标——&gt;每一束激光点在lidar基准坐标系下的坐标——&gt;显示
+从雷达坐标系向基准坐标系转化时，转换矩阵就是由这一帧的第一个激光点时间对应的机器人位姿确定的。</p>
+<p>这一帧的每一束激光点都是这样转化显示的，而实际上，随着机器人的运动，机器人在里程计下的位姿时刻在变化，所以显示出来的点云会有畸变。</p>
+<h5 id="去畸变过程的坐标转换">去畸变过程的坐标转换：</h5>
+<p>激光束的距离值和角度值-——&gt;每一束激光点在雷达坐标系下的坐标——&gt;每个激光束的点在里程计坐标系下的坐标——&gt;每个激光点在基准坐标系中的坐标——&gt;计算在基准坐标系下的角度值和距离值</p>
+<p>激光点的位姿从lidar坐标系到odom坐标系的转换，插值得到机器人在里程计坐标系中的转换。
+这样每一束激光点都对应了一个转换关系。没有去畸变的时候，这个转化关系是不变的，只是把所有的点在雷达坐标系下的坐标都按着这一帧的第一个激光点对应的转化关系转换的。这样其实就是忽略了机器人在这一帧激光数据的时间内的运动问题。</p>
+<p>就这个问题，说一下运动机器人坐标变换。几种坐标系，map、odom、base_link。odom是全局坐标系。</p>
+<div class="edit-meta">
+Last updated on 17 Oct 2017
+
+
+<br>
+Published on 17 Oct 2017
+<br><a href="%e5%9f%ba%e4%ba%8eROS%e7%9a%84SLAM%e7%b3%bb%e7%bb%9f/%e6%bf%80%e5%85%89%e9%9b%b7%e8%be%be%e5%8e%bb%e7%95%b8%e5%8f%98.md/edit/master/content/%e5%9f%ba%e4%ba%8eROS%e7%9a%84SLAM%e7%b3%bb%e7%bb%9f/%e6%bf%80%e5%85%89%e9%9b%b7%e8%be%be%e5%8e%bb%e7%95%b8%e5%8f%98.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/" title="六 基于的ROS的SLAM系统-项目"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 六 基于的ROS的SLAM系统-项目</a>
+<a class="nav nav-next" href="https://jiangxinyu1.github.io/%E5%B7%A5%E5%85%B7/" title="七 工具">Next - 七 工具 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="open-menu">
+<ul>
+<li class=""><a href="https://jiangxinyu1.github.io/">Home</a></li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%9A%8F%E7%AC%94/">---随笔---</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E7%9F%A9%E9%98%B5/">一 数学基础 - 矩阵</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E6%9C%80%E4%BC%98%E5%8C%96/">二 数学基础 - 最优化方法</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-c&#43;&#43;/">三 编程基础 - C&#43;&#43;学习</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">四 编程基础-数据结构与算法</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1/">1 二叉树的遍历方法及实现</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/2/">2 二分查找</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3/">3 递归的应用</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/">五 Sensor Fusion - 项目</a>
+  
+<ul class="sub-menu">
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/">Lidar Obstacle Detection</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/1/">Introduction</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/2/">Point Cloud Segmentation</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/3/">Clustering Obstacles</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/4/">Working&#39;with Real PCD</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/radar/">Radar</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/">Camera</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/">Kalman-Filter</a>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class="parent"><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/">六 基于的ROS的SLAM系统-项目</a>
+  
+<ul class="sub-menu">
+<li class="active"><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%8E%BB%E7%95%B8%E5%8F%98/">激光雷达运动畸变去除 </a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%B7%A5%E5%85%B7/">七 工具</a>
+  
+<ul class="sub-menu">
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%B7%A5%E5%85%B7/ubuntu/">Ubuntu</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%B7%A5%E5%85%B7/git/">Git</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%B7%A5%E5%85%B7/docker/">Docker</a>
+  
+</li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

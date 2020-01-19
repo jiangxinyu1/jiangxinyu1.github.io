@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>项目 - 基于的ROS的SLAM系统  on -姜欣宇的个人博客-</title>
+    <title>六 基于的ROS的SLAM系统-项目 on -姜欣宇的个人博客-</title>
     <link>https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/</link>
-    <description>Recent content in 项目 - 基于的ROS的SLAM系统  on -姜欣宇的个人博客-</description>
+    <description>Recent content in 六 基于的ROS的SLAM系统-项目 on -姜欣宇的个人博客-</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
     
 	<atom:link href="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>激光雷达运动畸变去除 </title>
+      <link>https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%8E%BB%E7%95%B8%E5%8F%98/</link>
+      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      
+      <guid>https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%8E%BB%E7%95%B8%E5%8F%98/</guid>
+      <description>一 原理简述 1 激光雷达产生畸变的原因 通常激光雷达在工作的时候，我们认为其每一帧激光对应一个位姿（相当于认为这帧激光的时间里机器人的坐标没变，也</description>
+    </item>
     
   </channel>
 </rss>

@@ -3,7 +3,7 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>二分查找 - -姜欣宇的个人博客-</title>
+<title>2 二分查找 - -姜欣宇的个人博客-</title>
 <meta name="description" content=" 在这里分享一些在激光SLAM和多传感器融合学习路上的笔记和心得，共同进步。">
 <meta name="generator" content="Hugo 0.62.2" />
 <link href="https://jiangxinyu1.github.io/index.xml" rel="alternate" type="application/rss+xml">
@@ -16,7 +16,7 @@
 <script src="https://jiangxinyu1.github.io/js/bundle.js"></script><style>
 :root {}
 </style>
-<meta property="og:title" content="二分查找" />
+<meta property="og:title" content="2 二分查找" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/2/" />
@@ -26,9 +26,9 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://jiangxinyu1.github.io/og-image.png"/>
 
-<meta name="twitter:title" content="二分查找"/>
+<meta name="twitter:title" content="2 二分查找"/>
 <meta name="twitter:description" content=""/>
-<meta itemprop="name" content="二分查找">
+<meta itemprop="name" content="2 二分查找">
 <meta itemprop="description" content="">
 <meta itemprop="datePublished" content="2017-10-17T15:26:15&#43;00:00" />
 <meta itemprop="dateModified" content="2017-10-17T15:26:15&#43;00:00" />
@@ -55,15 +55,15 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>二分查找</h1>
+<main><h1>2 二分查找</h1>
 <div class="edit-meta">
 Last updated on 17 Oct 2017
 
 
 <br>
 Published on 17 Oct 2017
-<br><a href="%e5%9f%ba%e7%a1%80-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95/2.md/edit/master/content/%e5%9f%ba%e7%a1%80-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95/2.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="编程基础-数据结构与算法"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 编程基础-数据结构与算法</a>
-<a class="nav nav-next" href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3/" title="递归的应用">Next - 递归的应用 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<br><a href="%e5%9f%ba%e7%a1%80-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95/2.md/edit/master/content/%e5%9f%ba%e7%a1%80-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95/2.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1/" title="1 二叉树的遍历方法及实现"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 1 二叉树的遍历方法及实现</a>
+<a class="nav nav-next" href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3/" title="3 递归的应用">Next - 3 递归的应用 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
 </footer>
 </main><div class="sidebar">
@@ -72,70 +72,42 @@ Published on 17 Oct 2017
 <ul>
 <li class=""><a href="https://jiangxinyu1.github.io/">Home</a></li>
 
-<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E6%9C%80%E4%BC%98%E5%8C%96/">数学基础 - 最优化方法</a>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%9A%8F%E7%AC%94/">---随笔---</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E7%9F%A9%E9%98%B5/">一 数学基础 - 矩阵</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E6%9C%80%E4%BC%98%E5%8C%96/">二 数学基础 - 最优化方法</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-c&#43;&#43;/">三 编程基础 - C&#43;&#43;学习</a>
+  
+</li>
+
+<li class="parent"><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">四 编程基础-数据结构与算法</a>
   
 <ul class="sub-menu">
-<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E6%9C%80%E4%BC%98%E5%8C%96/1/">Chapter 1-1</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1/">1 二叉树的遍历方法及实现</a></li>
+<li class="active"><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/2/">2 二分查找</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3/">3 递归的应用</a></li>
 </ul>
   
 </li>
 
-<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E7%9F%A9%E9%98%B5/">数学基础 - 矩阵</a>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/">五 Sensor Fusion - 项目</a>
   
 <ul class="sub-menu">
-<li class=""><a href="https://jiangxinyu1.github.io/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E7%9F%A9%E9%98%B5/1/">迭代</a></li>
-</ul>
-  
-</li>
-
-<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-c&#43;&#43;/">编程基础 - C&#43;&#43;</a>
-  
-<ul class="sub-menu">
-<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-c&#43;&#43;/1/">Chapter 1-1</a></li>
-</ul>
-  
-</li>
-
-<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/">项目 - 基于的ROS的SLAM系统 </a>
-  
-</li>
-
-<li class="parent"><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">编程基础-数据结构与算法</a>
-  
-<ul class="sub-menu">
-<li class="active"><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/2/">二分查找</a></li>
-<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3/">递归的应用</a></li>
-<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1/">二叉树的遍历方法及实现</a></li>
-</ul>
-  
-</li>
-
-<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/">项目 - Sensor Fusion</a>
-  
-<ul class="sub-menu">
-
-<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/">Camera</a>
-  
-<ul class="sub-menu">
-<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/1/">Chapter 3-2-1</a></li>
-</ul>
-  
-</li>
-
-<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/">Kalman-Filter</a>
-  
-<ul class="sub-menu">
-<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/1/">Chapter 3-2-1</a></li>
-</ul>
-  
-</li>
 
 <li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/">Lidar Obstacle Detection</a>
   
 <ul class="sub-menu">
-<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/3/">Clustering Obstacles</a></li>
-<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/1/">Introduction to Lidar and PointClouds</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/1/">Introduction</a></li>
 <li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/2/">Point Cloud Segmentation</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/3/">Clustering Obstacles</a></li>
 <li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/lidar/4/">Working&#39;with Real PCD</a></li>
 </ul>
   
@@ -143,16 +115,45 @@ Published on 17 Oct 2017
 
 <li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/radar/">Radar</a>
   
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/camera/">Camera</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/">Kalman-Filter</a>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/">六 基于的ROS的SLAM系统-项目</a>
+  
 <ul class="sub-menu">
-<li class=""><a href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/radar/1/">Chapter 3-2-1</a></li>
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%9F%BA%E4%BA%8Eros%E7%9A%84slam%E7%B3%BB%E7%BB%9F/%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%8E%BB%E7%95%B8%E5%8F%98/">激光雷达运动畸变去除 </a></li>
 </ul>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%B7%A5%E5%85%B7/">七 工具</a>
+  
+<ul class="sub-menu">
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%B7%A5%E5%85%B7/ubuntu/">Ubuntu</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%B7%A5%E5%85%B7/git/">Git</a>
+  
+</li>
+
+<li class=""><a href="https://jiangxinyu1.github.io/%E5%B7%A5%E5%85%B7/docker/">Docker</a>
   
 </li>
 </ul>
   
 </li>
-
-
 </ul>
 </nav>
 

@@ -11,14 +11,5 @@
 	<atom:link href="https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Chapter 3-2-1</title>
-      <link>https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/1/</link>
-      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
-      
-      <guid>https://jiangxinyu1.github.io/%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/kalman-filter/1/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
-    </item>
-    
   </channel>
 </rss>
